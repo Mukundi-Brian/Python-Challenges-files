@@ -5,7 +5,7 @@
 # 1 radian to degree multiply by 180/pi
 
 # 2. Converting square meters to hectares
-# 1 hectares = 10, 000 square meters and vice versa
+# 1 hectares = 10,000 square meters and vice versa
 
 # 3. Converting hectares to acres
 # 1 hectares = 2.471 acres and vice versa
@@ -27,7 +27,7 @@ while True: # The code will ask the question until quit is pressed
 
     # Lets make sure the quit function works first
     if user_choice == "Q":
-          print("Have a wonderful day!\n")
+          print("Exiting Program, have a wonderful day!\n")
           break
 
     # Lets check for values other than the choices given
