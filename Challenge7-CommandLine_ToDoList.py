@@ -12,6 +12,7 @@
 # 1. Create main menu using a while loop
 # 2. Create the options that do stuff
 # 3. Create a new todo list with predefined categories first then user_defined later
+import json # This is for saving user data
 
 mistake_counter = 0 # Adding a mistake counter to prevent spamming
 # i = 1 # let's add a counter for the users's tasks - Turns out you can use enumerate
@@ -21,14 +22,20 @@ all_todo_lists = {
     "groceries":[],
     "school work": []
 }
-# Let's use a map instead
-menu_map = {}
-counter = 1
-
+# Using json to read saved user data
+try:
+    with open("todo_data.json", "r", encoding="utf-8") as file:
+        all_todo_lists = json.load(file)
+except FileNotFoundError:
+    # If no save file exists, fall back to default dictionary
+    all_todo_lists = {
+    "personal":[],
+    "shopping":[],
+    "groceries":[],
+    "school work": []
+}
 # While loop - for user to access main menu and options
 while True:
-    all_tasks = [] # Let's add an all tasks here to facilitate easy removing of a task
-
     user_choice = input("""Hello, What would you like to do?
     A: Create a new ToDo List
     B: Add a Task
@@ -40,6 +47,8 @@ while True:
     # Let's make sure the user can quit the program
     if user_choice == "q":
         print("Exiting Program, have a good day!")
+        with open("todo_data.json", "w", encoding="utf-8") as file:
+            json.dump(all_todo_lists, file, indent=4)
         exit()
 
     #This should allow the user to create a new ToDo list
@@ -51,7 +60,7 @@ while True:
         print(f"You have created a new '{user_new_list_name}' list, Proceed to add a task\n")
 
     elif user_choice == "b":
-        print(f"({", ".join(all_todo_lists)})\n")
+        print(f"({', '.join(all_todo_lists)})\n")
         user_target_List = input("You have chosen to add a new task, which list do you want to use?: ").strip().lower()
 
         if user_target_List in all_todo_lists:
@@ -73,30 +82,31 @@ while True:
 
     # This block enables the user to remove a previously entered task
     elif user_choice == "d":
+        # let's add all tasks to a menu map dictionary in order to remove them much easily
         print("You have chosen to remove a task\n")
+        # Let's use a map instead to trace the path of the tasks and enable easy deletion of tasks
+        menu_map = {}
+        counter = 1 # Counter to display the lists for user
+        if any (all_todo_lists.values()):
+            for category, task in all_todo_lists.items():
+                if task:
+                    for item_index, item in enumerate (task):
+                        print(f"{counter}. {item} in '{category}'")
+                        menu_map[counter] = (category, item_index)
+                        counter += 1
 
-        # let's add all tasks to one dictionary in order to remove them much easily
-        for category, task_list in all_todo_lists.items():
-            if task_list:
-                all_tasks.extend(task_list)
-
-        # Now let's have the user choose the task they wish to remove
-        if any(all_tasks):
-            for i, task in enumerate(all_tasks, start=0):
-                print(f"{i}.{task}")
-
+            # Now let's have the user choose the task they wish to remove
             # Let's wrap the user input in a try block to cater for value error
             try:
                 user_remove_task = int(input("Enter the No of the task you wish to remove: "))
-                if 0 <= user_remove_task < len(all_tasks):
-                    removed_task = all_tasks.pop(user_remove_task)
-                    print(f"You a have successfully removed '{removed_task}' from your tasks\n")
+                if user_remove_task in menu_map:
+                    target_category, target_task = menu_map[user_remove_task]
+                    removed_task = all_todo_lists[target_category].pop(target_task)
+                    print(f"You a have successfully removed '{removed_task}' from your tasks")
                 else:
-                    print("Invalid input, no such task exists \n")
-                    
-            except ValueError:
+                    print("Invalid input, no such task exists")
+            except (ValueError, IndexError):
                 print("Invalid input, that is not a valid response\n")
-
         else:
             print("No task has been added yet\n")
 

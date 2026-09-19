@@ -24,9 +24,9 @@ try:
 
     if user_remove_task in menu_map:
         #  Look for the category and item in the menu map
-        target_category, target_item_index = menu_map[user_remove_task]
+        target_category, target_item = menu_map[user_remove_task]
         # Delete it from the menu map
-        removed_item = all_todo_lists[target_category].pop(target_item_index)
+        removed_item = all_todo_lists[target_category].pop(target_item)
         print(f"Successfully deleted '{removed_item}' from tasks")
     else:
         print("Invalid choice")
