@@ -1,3 +1,4 @@
+# Class Variables and inheritance
 # class variables = shared among all instances of a class
 #                  - Defined outside the constructor
 #                  - Allows you to share data among all objects created from that class
@@ -25,9 +26,52 @@ student3 = Student("Mario", 56)
 student4 = Student("Steven", 31)
 student5 = Student("Eugene", 28)
 
-print(student1.name)
-print(student1.age)
-print(Student.class_year)
+# print(student1.name)
+# print(student1.age)
+# print(Student.class_year)
 
-print(Student.num_students)
-print(f"Class of {Student.class_year} has {Student.num_students} students")
+# print(Student.num_students)
+# print(f"Class of {Student.class_year} has {Student.num_students} students")
+
+# Inheritance = Allows a class to inherit attributes and methods from another class,
+#              - It helps with code reusability and extensibility
+#              - class Child(Parent)
+
+class Animal:
+    def __init__(self, name):
+        self.name = name
+        self.is_alive = True
+
+    def eat(self):
+        print(f"{self.name} is eating")
+
+    def sleep(self):
+        print(f"{self.name} is sleeping")
+
+animal1 = Animal("James")
+
+class Cat(Animal):
+    def speak(self):
+        print(f"{self.name} Meows!")
+
+class Dog(Animal):
+    def speak(self):
+        print(f"{self.name} WOOFs!")
+
+class Horse(Animal):
+    def speak(self):
+        print(f"{self.name} Neighs!")
+
+print(animal1.is_alive)
+print(animal1.name)
+animal1.sleep()
+
+cat1 = Cat("Ralph")
+dog1 = Dog("Bobby")
+horse1 = Horse("Jester")
+
+cat1.speak()
+dog1.speak()
+horse1.sleep()
+cat1.eat()
+print(cat1.is_alive)
