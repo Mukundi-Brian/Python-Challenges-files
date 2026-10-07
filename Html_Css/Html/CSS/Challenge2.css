@@ -1,0 +1,100 @@
+/* Importing fonts to use */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+/* Styling for whole site */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+    background-color: #0b0b0b;
+}
+
+ul {
+    text-decoration: none;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    width: 100%;
+}
+
+/* Styling for the header section */
+header .nav-bar {
+    display: flex;
+    padding: 20px 5%;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #0b0b0b;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.nav-bar .hero-header {
+    color: #fff;
+    cursor: default;
+}
+
+.nav-bar .hero-header span {
+    color: sandybrown;
+}
+
+.nav-bar .nav-menu{
+    display: flex;
+    gap: 36px;
+    font-size: 1.2rem;
+}
+
+.nav-links{
+    color: #fff;
+}
+
+.nav-links:hover {
+    color: sandybrown;
+}
+
+/* Styling for the hero section */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("coffee-hero-bg.jpg");
+    background-repeat: none;
+    background-size: cover;
+}
+
+.hero-section .hero-text {
+    margin: 12px 24px;
+    max-width: 70%;
+}
+
+.hero-section .hero-paragraph {
+    margin: 12px 24px;
+    max-width: 50%;
+}
+
+.hero-section .hero-button {
+    background: sandybrown;
+    padding: 12px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 500;
+    margin: 12px 24px;
+}
+
+.hero-section .hero-button:hover {
+    color: sandybrown;
+    background-color: #fff;
+    border: 2px solid;
+}

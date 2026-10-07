@@ -1,0 +1,34 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: #0d1f12;
+    color: #fff;
+}
+
+.hero {
+    background-image: url("Images/Header_background_upscayl_4x_upscayl-standard-4x.png");
+    min-height: 50vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+h1 {
+    color: bisque;
+    text-align: left;
+    padding: auto;
+}
+p {
+    color: #fff;
+    text-align: left;
+}
+.header_button {
+    color: #0d1f12;
+    margin-top: 20px;
+    margin-left: 50px;
+    padding: 5px;
+}
