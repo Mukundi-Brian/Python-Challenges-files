@@ -9,7 +9,9 @@ class Car:
 
     def drive(self):
         print(f"Your are driving the {self.model}")
+        
     def stop(self):
         print(f"You have stopped the {self.model}")
+        
     def describe(self):
         print(f"{self.year} {self.color} {self.model}")
