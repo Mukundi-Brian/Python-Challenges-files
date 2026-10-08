@@ -49,7 +49,6 @@ class Animal:
         print(f"{self.name} is sleeping")
 
 animal1 = Animal("James")
-
 class Cat(Animal):
     def speak(self):
         print(f"{self.name} Meows!")
@@ -70,8 +69,8 @@ cat1 = Cat("Ralph")
 dog1 = Dog("Bobby")
 horse1 = Horse("Jester")
 
-cat1.speak()
-dog1.speak()
-horse1.sleep()
-cat1.eat()
-print(cat1.is_alive)
+# cat1.speak()
+# dog1.speak()
+# horse1.sleep()
+# cat1.eat()
+# print(cat1.is_alive)
