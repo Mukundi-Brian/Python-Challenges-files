@@ -1,0 +1,22 @@
+body {
+    font-family: Helvetica;
+    text-align: center;
+}
+
+#my_btn {
+    font-size: 3em;
+    padding: 5px 25px;
+    border-radius: 8px;
+    background-color: cadetblue;
+    border: none;
+    transition: background-color 0.25s;
+    color: #fff;
+}
+
+#my_btn:hover {
+    background-color: rgb(45, 121, 124);
+}
+
+.my_labels {
+    font-size: 4em;
+}

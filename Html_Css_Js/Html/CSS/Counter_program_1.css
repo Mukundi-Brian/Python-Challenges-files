@@ -1,0 +1,24 @@
+#counter_label {
+    display: block;
+    text-align: center;
+    font-size: 10em;
+}
+
+#btn_container {
+    text-align: center;
+}
+
+.btns {
+    padding: 10px 20px;
+    font-size: 1.5em;
+    color: #fff;
+    background-color: rgb(92, 146, 255);
+    border-radius: 8px;
+    transition: background-color 0.25s;
+    border: none;
+    cursor: pointer;
+}
+
+.btns:hover {
+    background-color: rgb(102, 187, 251);
+}
