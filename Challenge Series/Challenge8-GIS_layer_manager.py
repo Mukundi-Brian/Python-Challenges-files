@@ -24,45 +24,41 @@ class MapLayer(ABC):
 
 class VectorLayer(MapLayer):
     """A class that renders vectors (points, lines, polygons)"""
-    def __init__(self, type):
-        self.type = type
-
-    def render(self):
-        print(f"Vector layer is rendering {self.type}...")
+    def __init__(self, data_type = "Unknown"):
+        self.data_type = data_type
 
     def type_determiner(self):
-        for item in mixed_types:
-            if item in vector_types:
-                organized_vectors.append(item)
-            elif item in raster_types:
-                organized_rasters.append(item)
-            else:
-                unknown_types.append(item)
+        for vector in mixed_types:
+            if vector in vector_types:
+                organized_vectors.append(vector)
 
         print("------- Vector Types --------")
         for line in vector_types:
             print(f" - {line}")
+    
+    def render(self):
+        self.type_determiner()
+        for line in organized_vectors:
+            print(f"Vector layer is rendering {line}...")
 
 class RasterLayer(MapLayer):
     """A class that renders rasters (in grids or cells)"""
-    def __init__(self, type):
-        self.type = type
-
-    def render(self):
-        print(f"Raster layer is rendering {self.type}...")
+    def __init__(self, data_type = "Unknown"):
+        self.data_type = data_type
 
     def type_determiner(self):
         for item in mixed_types:
-            if item in vector_types:
-                organized_vectors.append(item)
-            elif item in raster_types:
+            if item in raster_types:
                 organized_rasters.append(item)
-            else:
-                unknown_types.append(item)
 
         print("------- Raster Types --------")
         for line in raster_types:
             print(f" - {line}")
+
+    def render(self):
+        self.type_determiner()
+        for line in organized_rasters:
+            print(f"Raster layer is rendering {line}...")
 
 # def data_type_determiner():
 #     """This function will go through a mixed list of raster and vector types and sorts them accordingly"""
@@ -76,11 +72,8 @@ class RasterLayer(MapLayer):
 #         else:
 #             unknown_types.append(item)
 
-vector_1 = VectorLayer("Point")
+vector_1 = VectorLayer()
 raster_1 = RasterLayer("500*500 grid")
-vector_1.render()
-raster_1.render()
-
 # data_type_determiner()
 
 # print("-------- Vector Types --------")
@@ -95,5 +88,8 @@ raster_1.render()
 # for line in unknown_types:
 #     print(f" - {line}")
 
-raster_1.type_determiner()
-vector_1.type_determiner()
+# raster_1.type_determiner()
+# vector_1.type_determiner()
+
+raster_1.render()
+vector_1.render()
