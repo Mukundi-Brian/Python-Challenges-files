@@ -1,4 +1,4 @@
-# C_stand program, Functions, default arguments, keyword arguments, args & **kwargs, iterables
+# C_stand program, Functions, default arguments, keyword arguments, *args & **kwargs, iterables
 
 # Concession stand program
 
@@ -184,4 +184,3 @@
 
 # for value in my_dict.values():
 #     print(value)
-
