@@ -1,5 +1,4 @@
-# Counter timer program, nested loops, lists, sets, tuples, dictionaries
-# Shopping cart program, 2d collections, quiz game
+# Counter timer program, nested loops, lists, sets, tuples, dictionaries, Shopping cart program, 2d collections, quiz game, format specifiers
 
 # Counter timer program
 # import time
@@ -159,3 +158,17 @@
 
 # score = int(score / len(questions) * 100)
 # print(f"Your score is: {score}%")
+
+# Format Specifiers
+# Format specifiers = (:flags) format a value based on what flags are inserted
+
+# .(number)f = round to that many decimal places
+# :(number) = allocate that many spaces
+# :03 = allocate and zero pad that many spaces
+# :< = left justify
+# :> = right justify
+# :^ = center align
+# :+ = use a plus sign to indicate positive values
+# := = place sign to leftmost position
+# :  = insert a space before positive numbers
+# :, = comma separator
