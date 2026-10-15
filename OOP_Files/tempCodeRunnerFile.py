@@ -1,7 +1,9 @@
-print(animal1.is_alive)
-print(animal1.name)
-animal1.sleep()
+@width.deleter
+    # def width(self):
+    #     del self._width
+    #     print("Width has been deleted")
 
-cat1 = Cat("Ralph")
-dog1 = Dog("Bobby")
-horse1 = Horse("Jester")
+    # @height.deleter
+    # def height(self):
+    #     del self._height
+    #     print("Width has been deleted")
