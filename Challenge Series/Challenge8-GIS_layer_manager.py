@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 vector_types = ("point", "line", "polygon")
 raster_types = ("grid", "cells")
 
-mixed_types = ["point", "grid", "cells", "line", "polygon"]
+mixed_types = ["point", "grid", "cells", "line", "polygon", "pixels"]
 organized_vectors = []
 organized_rasters = []
 unknown_types = []

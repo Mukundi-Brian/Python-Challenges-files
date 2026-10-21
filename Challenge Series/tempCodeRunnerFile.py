@@ -1,3 +1,3 @@
-with open(file_path, "w", encoding="utf-8") as file:
-    file.write(txt_data)
-    print(f"{file_path} created successfully")
+for num in (list_1, list_2):
+#     if num % 2 == 0:
+#         print(num)
