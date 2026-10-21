@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Helvetica;
+}
+
+.button_section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 1.5rem;
+    padding: 12px 24px;
+    gap: 15px;
+}
+
+#submit_btn {
+    border: none;
+    background-color: #007AFF;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+#submit_btn:hover {
+    background-color: #2f94ff;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between the radio/checkbox and its text label */
+}
+
+.form-group input[type="checkbox"],
+.form-group input[type="radio"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    cursor: pointer; /* Makes it obvious they are clickable */
+    accent-color: #ff4a8d; /* A vibrant pink */
+}
+
+.form-group label {
+    cursor: pointer; /* Lets users click the text to select the option too! */
+}
+
