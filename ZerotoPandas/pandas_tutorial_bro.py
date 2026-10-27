@@ -95,8 +95,20 @@ import pandas as pd
 # The next lessons are in importing_csv_pandas.py
 # Alright fine I will redo it here
 
-df = pd.read_csv("ZerotoPandas/Bro_code_pokemonData.csv")
+# df = pd.read_csv("ZerotoPandas/Bro_code_pokemonData.csv")
 
 # print(df)
-print(df.to_string()) # This will print everything
+# print(df.to_string()) # This will print everything
 
+
+
+
+# Lesson 4: Selection ------------------------------------------
+
+# df = pd.read_csv("ZerotoPandas/Bro_code_pokemonData.csv")
+
+# Selection by column
+# print(df["Name"])
+# print(df["Name"].to_string()) # Prints everything
+# print(df["Height"])
+# print(df["Weight"].to_string())
