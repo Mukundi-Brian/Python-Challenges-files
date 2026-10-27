@@ -1,4 +1,4 @@
-# Membership Operators, list comprehensions, match-case
+# Membership Operators, list comprehensions, match-case, string methods
 
 # Membership Operators = Used to test whether a value or variable is found in a sequence
 #                Which include but not limited to: (string, list, tuple, set or dictionary)
@@ -143,3 +143,46 @@
 #             return f"'{day}' is not a valid day"
 
 # print(is_weekend("Friday"))
+
+
+# String Methods  ------------------------------------------
+# name = input("Enter your full name: ")
+# name = "goat panda"
+# name = "1232435"
+# result = len(name) # Gives us length of a string
+# result = name.find("p") # returns first occurrence of a character
+# result = name.rfind("z") # returns last occurrence of a character: -1 means no results
+# result = name.capitalize() # capitalizes the string
+# result = name.upper() # makes all characters uppercase
+# result = name.lower() # makes all characters lowercase
+# result = name.isdigit() # returns a boolean if string contains ONLY digits
+# result = name.isalpha() # returns a boolean if string contains ONLY alphabetical characters, space returns false since its not an aplahabet
+# phone_number = "+254-124-456-213-10"
+
+# result = phone_number.count("-") # returns an integer based on the number of counts of the character
+# phone_number = phone_number.replace("-", " ") # returns a new string, replacing a character with another
+
+# print(phone_number)
+# print(help(str))
+
+
+# Exercise Validate user input *** ---------------
+# 1. username is no more than 12 characters
+# 2. Username must not contain spaces
+# 3. username must not contain digits
+
+while True:
+    username = input("Enter your username: ")
+
+    if len(username) > 12:
+        print("Username cannot be more than 12 characters")
+        continue
+    elif " " in username:
+        print("Username cannot contain spaces")
+        continue
+    elif not username.isalpha():
+        print("Username cannot contain numbers")
+        continue
+    else:
+        print("Username entered successfully")
+        break

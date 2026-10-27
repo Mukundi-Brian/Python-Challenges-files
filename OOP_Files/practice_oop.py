@@ -9,7 +9,7 @@ class Book:
     @ classmethod
     def from_string(cls, book_str):
         new_string = book_str.strip().capitalize()
-        new_string["-"]
+        new_string.find(" ")
         return new_string
 
 my_first_book = Book("Abroad in Japan", "Chris Broad")
