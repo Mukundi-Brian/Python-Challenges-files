@@ -1,9 +1,6 @@
-# @width.deleter
-    # def width(self):
-    #     del self._width
-    #     print("Width has been deleted")
+pizza = 0
 
-    # @height.deleter
-    # def height(self):
-    #     del self._height
-    #     print("Width has been deleted")
+if pizza in range(0, 181):
+    print("Interesting")
+else:
+    print("Naaaaniiii!")
