@@ -1,4 +1,4 @@
-# Exception handling, file detection, dates and time, alarm clock, Multithreading
+# Exception handling, file detection, dates and time, alarm clock
 
 # exception = an event that interrupts the flow of a program
 #             (ZeroDivisionError, TypeError, ValueError)
@@ -93,7 +93,3 @@
 # if __name__ == "__main__":
 #     alarm_time = input("Enter the alarm time (HH:MM:SS): ")
 #     set_alarm(alarm_time)
-
-
-
-# Multi-threading
