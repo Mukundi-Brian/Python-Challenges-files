@@ -256,15 +256,3 @@
 # print(coordinate_1 == coordinate_2)
 
 # coordinate_3 = GpsCoordinate(0, 12)
-
-
-
-# DECORATORS **********************************
-# Exercise 4... -----------------
-# Performance time tracker
-# Decorators that measures time, can wrap any function, measures how long it takes to run, prints the execution duration, and returns the function's actual result.
-# import time
-# import functools
-
-# def measure_time(func):
-    

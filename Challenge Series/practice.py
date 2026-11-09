@@ -333,37 +333,255 @@
 #          (Method overriding and duck typing)
 # ************************* ------------------------------
 
-class Robot:
-    # class variable
-    population = 0
+# class Robot:
+#     # class variable
+#     population = 0
 
-    def __init__(self, name, battery):
-        self.name = name
-        self.battery = battery
-        Robot.population += 1
+#     def __init__(self, name, battery):
+#         self.name = name
+#         self.battery = battery
+#         Robot.population += 1
 
-    # Speaking function
-    def speak(self):
-        print("Beep Boop")
+#     # Speaking function
+#     def speak(self):
+#         print("Beep Boop")
 
-my_robot = Robot("Simon", 90)
+# my_robot = Robot("Simon", 90)
 
-class CleaningRobot(Robot):
-    # Inheriting from robot: Name and battery
-    # super().__init__(name, battery)
+# class CleaningRobot(Robot):
+#     # Inheriting from robot: Name and battery
+#     # super().__init__(name, battery)
 
-    # Cleaning method
-    def clean(self):
-        print(f"'{self.name}' is cleaning.")
-        self.battery -= 50
+#     # Cleaning method
+#     def clean(self):
+#         print(f"'{self.name}' is cleaning.")
+#         self.battery -= 50
 
-    # Speaking function
-    def speak(self):
-        print("I am cleaning the floor.")
+#     # Speaking function
+#     def speak(self):
+#         print("I am cleaning the floor.")
 
-print(my_robot.battery)
-robot_2 = CleaningRobot("Finn", 90)
+# print(my_robot.battery)
+# robot_2 = CleaningRobot("Finn", 90)
 
-robot_2.clean()
-print(robot_2.battery)
-robot_2.speak()
+# robot_2.clean()
+# print(robot_2.battery)
+# robot_2.speak()
+
+
+
+
+
+
+# ************************* ------------------------------
+# Phase 5: (Decorators,
+# ************************* ------------------------------
+
+# Execution Timer Decorator *********************
+# Imports
+# import time
+# import functools
+
+# Measuring time decorator
+# def measure_time(func):
+#     @functools.wraps(func)
+#     def wrapper(*args, **kwargs):
+#         start_time = time.perf_counter()
+#         result = func(*args, **kwargs)
+#         end_time = time.perf_counter()
+#         time_taken = end_time - start_time
+#         print(f"Execution Time: {time_taken:.2f}")
+#         return result
+#     return wrapper
+
+# @measure_time
+# def simulate_spatial_query(points_count):
+#     print(f"Processing {points_count} spatial points...")
+#     time.sleep(2) # simulating the time taken
+#     return f"Success: Processed {points_count} spatial points"
+
+# print(simulate_spatial_query.__name__)
+# print(simulate_spatial_query(300))
+
+
+# # Validator (Bouncer) Decorator *********************
+# import functools
+
+# def validate_positive(func):
+#     @functools.wraps(func)
+#     def wrapper(*args, **kwargs):
+#         for arg in args:
+#             # Can also be done like this
+#             # if isinstance(arg, (int, float)) and arg <= 0:
+#             #     raise ValueError("Error!, Can't execute buffer with radius of 0 or less than 0")
+#             if arg <= 0:
+#                 raise ValueError("Error!, Can't execute buffer with radius of 0 or less than 0")
+#         for value in kwargs.values():
+#             # Can also be done like this:
+#             if isinstance (value, (int, float)) and value <= 0:
+#                 raise ValueError("Error!, Can't execute buffer with radius of 0 or less than 0")
+#             # if value <= 0:
+#             #     # raise ValueError("Error!, Can't execute buffer with radius of 0 or less than 0")
+#         result = func(*args, **kwargs)
+#         return result
+#     return wrapper
+
+# # Retry function
+# # def retry_code(func):
+# #     @functools.wraps(func)
+# #     def wrapper(*args, **kwargs):
+# #         retry_times = 2
+# #         try:
+# #             result = func(*args, **kwargs)
+# #             return result
+# #         except ValueError as e:
+# #             print("Raised ValueError", e)
+# #             for i in range(retry_times):
+# #                 print(f"{i}. Trying again...")
+# #                 result = func(*args, **kwargs)
+# #             return result
+# #         except ConnectionError as c:
+# #             print("Raised ValueError", c)
+# #             for i in range(retry_times):
+# #                 print(f"{i}. Trying again...")
+# #                 result = func(*args, **kwargs)
+# #             return result
+# #     return wrapper
+
+# # That retry code was good however it there's a better way to reimplement it rather than hardcoding a fixed number of retries
+
+# def retry_code(max_attempts=3):
+#     if max_attempts <= 0:
+#         # print(f"Warning! Invalid max attempts: '{max_attempts}' setting to default max_attempts(3)")
+#         # max_attempts = 3
+        
+#         #instead of printing an error, raise it just in case the user didn't want a default fallback
+#         raise ValueError(f"Max attempts must be at least 1, got {max_attempts}")
+#     def decorator_for_retrying(func):
+#         @functools.wraps(func)
+#         def wrapper(*args, **kwargs):
+#             attempts = 0
+#             while attempts < max_attempts:
+#                 try:
+#                     result = func(*args, **kwargs)
+#                     return result
+#                 except ConnectionError as e:
+#                     attempts += 1
+#                     if attempts >= max_attempts:
+#                         print("[FATAL] Max retry attempts reached. Crashing!")
+#                         raise
+#                     else:
+#                         print(f"[RETRYING] failed. Attempted '{attempts}' time(s): {e}")
+#         return wrapper
+#     return decorator_for_retrying
+
+# @retry_code(max_attempts=1)
+# @validate_positive
+# def calculate_buffer_zone(radius):
+#     return f"Buffer zone created with radius: {radius} km"
+
+# # print(calculate_buffer_zone(12))
+
+# # # This should not work
+# # try:
+# #     print(calculate_buffer_zone(-12))
+# # except ValueError as e:
+# #     print("Caught! by decorator:", e)
+
+# # try:
+# #     print(calculate_buffer_zone(radius=12))
+# # except ValueError as e:
+# #     print("Caught!", e)
+# # except ConnectionError as c:
+# #     print("Caught!", c)
+# print(calculate_buffer_zone(radius=12))
+
+
+
+# Final Boss Challenge -----*********************
+# Autonomous Delivery Drone
+# A python script that models an autonomous delivery drone
+# Imports
+import time
+import functools
+class DroneLocation():
+    """Tracks the drone location"""
+    def __init__(self, latitude:float, longitude:float):
+        self.latitude = latitude
+        self.longitude = longitude
+
+    # Static method for checking valid latitude
+    @staticmethod
+    def is_valid_latitude(latitude):
+        """Checks for valid latitude"""
+        # time.sleep(1)
+        return -90 <= latitude <= 90
+
+    # static method for checking valid longitude
+    @staticmethod
+    def is_valid_longitude(longitude):
+        """Checks for valid longitude"""
+        # time.sleep(1)
+        return -180 <= longitude <= 180
+
+    # setting up latitude
+    @property
+    def latitude(self):
+        """Introduces a security check on latitude"""
+        # time.sleep(2)
+        return self._latitude
+
+    @latitude.setter
+    def latitude(self, new_latitude):
+        if not self.is_valid_latitude(new_latitude):
+            raise ValueError(f"Latitude value out of range, expected (-90, 90), got ({new_latitude})")
+        # time.sleep(3)
+        self._latitude = new_latitude
+    
+    # setting up longitude
+    @property
+    def longitude(self):
+        """Introduces a security check on longitude value"""
+        # time.sleep(2)
+        return self._longitude
+    
+    @longitude.setter
+    def longitude(self, new_longitude):
+        if not self.is_valid_longitude(new_longitude):
+            raise ValueError(f"Longitude value out of range, expected (-180, 180), got ({new_longitude})")
+        # time.sleep(2)
+        self._longitude = new_longitude
+
+    # Magic method for inspection
+    def __repr__(self):
+        # time.sleep(0.5)
+        return f"Latitude: {self.latitude}, Longitude: {self.longitude}"
+
+    # Magic method for comparison of coordinates
+    def __eq__(self, other):
+        # time.sleep(0.5)
+        return self.latitude == other.longitude and self.longitude == other.longitude       
+
+# Tracks execution time
+def log_telemetry(func):
+    """Tracks execution time every time a drone method executes"""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        start_time = time.perf_counter()
+        result = func(*args, **kwargs)
+        end_time = time.perf_counter()
+        time_taken = end_time - start_time
+        print(f"Time taken is: {time_taken}")
+        return result
+    return wrapper
+
+class DeliveryDrone():
+    """Main delivery drone class"""
+    def __init__(self, drone_id, battery_level, payload_kg):
+        self.drone_id = drone_id
+        self.battery_level = battery_level
+        self.payload_kg = payload_kg
+
+location1 = DroneLocation(20, 1119)
+
+print(location1)
