@@ -502,86 +502,174 @@
 # Autonomous Delivery Drone
 # A python script that models an autonomous delivery drone
 # Imports
+import datetime
 import time
 import functools
-class DroneLocation():
-    """Tracks the drone location"""
+import math
+
+def log_telemetry(func):
+    """Decorator that prints a timestamp and logs execution"""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        time_stamp = datetime.datetime.now().strftime("%Y-%m-%d, %H:%M:%S.%f")
+        print(f"Telemetry Log: {time_stamp}")
+        print(f"Executing Function: {func.__name__}")
+        start_time = time.perf_counter()
+        result = func(*args, **kwargs)
+        duration = time.perf_counter() - start_time
+        print(f"Telemetry Log: Finished Executing - {func.__name__}")
+        print(f"Time taken: {duration:.10f} seconds")
+        return result
+    return wrapper
+class DroneLocation:
+    """Telemetry Class"""
     def __init__(self, latitude:float, longitude:float):
         self.latitude = latitude
         self.longitude = longitude
 
-    # Static method for checking valid latitude
     @staticmethod
     def is_valid_latitude(latitude):
-        """Checks for valid latitude"""
-        # time.sleep(1)
+        """Method for checking valid latitude"""
         return -90 <= latitude <= 90
 
-    # static method for checking valid longitude
     @staticmethod
     def is_valid_longitude(longitude):
-        """Checks for valid longitude"""
-        # time.sleep(1)
+        """Method for checking valid latitude"""
         return -180 <= longitude <= 180
 
-    # setting up latitude
+    @staticmethod
+    def distance_btwn_points(location_1:DroneLocation, location_2:DroneLocation):
+        """Method that calculates the straight line distance between two points"""
+        latitude_diff = location_2.latitude - location_1.latitude
+        longitude_diff = location_2.longitude - location_1.longitude
+        distance = math.sqrt((latitude_diff ** 2) + (longitude_diff ** 2))
+        return distance
+    
+    # Setter and checker fot latitude
     @property
     def latitude(self):
-        """Introduces a security check on latitude"""
-        # time.sleep(2)
+        """Returns the value of latitude"""
         return self._latitude
 
     @latitude.setter
     def latitude(self, new_latitude):
         if not self.is_valid_latitude(new_latitude):
-            raise ValueError(f"Latitude value out of range, expected (-90, 90), got ({new_latitude})")
-        # time.sleep(3)
-        self._latitude = new_latitude
-    
-    # setting up longitude
+            raise ValueError(f"Invalid latitude, expected (-90, 90), got ({new_latitude})")     
+        self._latitude = new_latitude     
+
+    # Setter and checker fot longitude
     @property
     def longitude(self):
-        """Introduces a security check on longitude value"""
-        # time.sleep(2)
+        """Returns the value of longitude"""
         return self._longitude
-    
+
     @longitude.setter
     def longitude(self, new_longitude):
         if not self.is_valid_longitude(new_longitude):
-            raise ValueError(f"Longitude value out of range, expected (-180, 180), got ({new_longitude})")
-        # time.sleep(2)
+            raise ValueError(f"Invalid Longitude, expected (-180, 180), got ({new_longitude})")
         self._longitude = new_longitude
 
-    # Magic method for inspection
+    # Magic method for representing the locations
     def __repr__(self):
-        # time.sleep(0.5)
-        return f"Latitude: {self.latitude}, Longitude: {self.longitude}"
+        return f"Latitude: {self._latitude}, Longitude: {self._longitude}"
 
-    # Magic method for comparison of coordinates
-    def __eq__(self, other):
-        # time.sleep(0.5)
-        return self.latitude == other.longitude and self.longitude == other.longitude       
-
-# Tracks execution time
-def log_telemetry(func):
-    """Tracks execution time every time a drone method executes"""
-    @functools.wraps(func)
-    def wrapper(*args, **kwargs):
-        start_time = time.perf_counter()
-        result = func(*args, **kwargs)
-        end_time = time.perf_counter()
-        time_taken = end_time - start_time
-        print(f"Time taken is: {time_taken}")
-        return result
-    return wrapper
-
-class DeliveryDrone():
-    """Main delivery drone class"""
-    def __init__(self, drone_id, battery_level, payload_kg):
+    # Magic method for equating values
+    def __eq__(self, other_value):
+        return self.latitude == other_value.latitude and self.longitude == other_value.longitude
+class DeliveryDrone:
+    """Main Class"""
+    def __init__(self, drone_id, current_location:DroneLocation, battery_level:float, payload_kg:float):
         self.drone_id = drone_id
+        self.current_location = current_location
         self.battery_level = battery_level
         self.payload_kg = payload_kg
 
-location1 = DroneLocation(20, 1119)
+    # Flight loop method to get the drone to fly
+    def fly_to(self, destination:DroneLocation, speed:float = 1.0):
+        """Method that enables the drone to fly"""
+        is_flying = True
+        while is_flying:
+            self.battery_level *= 0.05
+            current_latitude = self.current_location.latitude
+            current_longitude = self.current_location.longitude
+            destination_latitude = destination.latitude
+            destination_longitude = destination.longitude
+            latitude_left_to_travel = destination_latitude - current_latitude
+            longitude_left_to_travel = destination_longitude - current_longitude
+            unit_vector_direction = math.sqrt()
+            
+            if self.battery_level <= 0:
+                print("Warning! Battery level depleted, commencing emergency landing!")
+                break
+            elif destination < speed:
+                print("You have arrived!")
+                is_flying = False
+            
 
-print(location1)
+    # Method for executing flight path
+    @log_telemetry
+    def execute_flight_path(self, destination_coordinates:DroneLocation):
+        """Function that simulates flight path"""
+        print(f"Drone {self.drone_id}, flying to destination: {destination_coordinates}")
+        return "Flight path executed successfully"
+    
+    @classmethod
+    def from_csv(cls, new_location):
+        """Accepts inputs from csv"""
+        drone_id, current_location, battery_level, payload_kg = new_location.strip().split(",")
+        drone_id = drone_id.strip()
+        current_location = current_location.strip()
+        battery_level = battery_level.strip()
+        payload_kg = payload_kg.strip()
+        return cls(drone_id, current_location, float(battery_level), float(payload_kg))
+
+    @staticmethod
+    def is_valid_battery_level(battery_level):
+        """Validates battery level"""
+        return 0 <= battery_level <= 100
+
+    @staticmethod
+    def is_valid_payload_kg(payload_kg):
+        """Validates payload kg"""
+        return 0 <= payload_kg <= 5
+
+    # Setter and getter for battery_level
+    @property
+    def battery_level(self):
+        """Returns the value of battery level"""
+        return self._battery_level
+
+    @battery_level.setter
+    def battery_level(self, new_battery_level):
+        if not self.is_valid_battery_level(new_battery_level):
+            raise ValueError(f"Invalid battery level, expected (0, 100), got ({new_battery_level})")
+        self._battery_level = new_battery_level
+
+    # Setter and getter for payload_Kg
+    @property
+    def payload_kg(self):
+        """Returns the value of payload Kg"""
+        return self._payload_kg
+
+    @payload_kg.setter
+    def payload_kg(self, new_payload_kg):
+        if not self.is_valid_payload_kg(new_payload_kg):
+            raise ValueError(f"Invalid payload_Kg, expected (0, 5) got ({new_payload_kg})")
+        self._payload_kg = new_payload_kg
+
+    # Magic method for printing the objects
+    def __repr__(self):
+        return f"Drone_id: {self.drone_id}, Battery Level: {self._battery_level}, Payload Kg: {self._payload_kg}"
+
+
+# location_1 = DroneLocation(10, -90)
+# location_3 = DroneLocation(10, -90)
+# location_2 = DroneLocation(-10, 120)
+drone_1 = DeliveryDrone("Miam1", 100, 80, 5)
+print(drone_1)
+
+# print(location_1)
+# print(location_2)
+# print(location_1 == location_3)
+
+drone_1.execute_flight_path(100)
