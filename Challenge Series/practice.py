@@ -587,23 +587,29 @@ class DeliveryDrone:
     # Flight loop method to get the drone to fly
     def fly_to(self, destination:DroneLocation, speed:float = 1.0):
         """Method that enables the drone to fly"""
-        is_flying = True
-        while is_flying:
-            self.battery_level *= 0.05
-            current_latitude = self.current_location.latitude
-            current_longitude = self.current_location.longitude
-            destination_latitude = destination.latitude
-            destination_longitude = destination.longitude
-            latitude_left_to_travel = destination_latitude - current_latitude
-            longitude_left_to_travel = destination_longitude - current_longitude
-            unit_vector_direction = math.sqrt()
+        while True:
+            # calculates how far away the target is in lat/lon
+            latitude_left_to_travel = destination.latitude - self.current_location.latitude
+            longitude_left_to_travel = destination.longitude - self.current_location.longitude
+            distance = math.sqrt((latitude_left_to_travel ** 2) + (longitude_left_to_travel ** 2))
             
+            if distance <= speed:
+                print()
+                print("You have arrived!")
+                self.current_location.latitude = destination.latitude
+                self.current_location.longitude = destination.longitude
+                break
+
+            self.battery_level -= 0.5
             if self.battery_level <= 0:
                 print("Warning! Battery level depleted, commencing emergency landing!")
                 break
-            elif destination < speed:
-                print("You have arrived!")
-                is_flying = False
+        
+            unit_vector_direction = [(latitude_left_to_travel/distance), (longitude_left_to_travel/distance)]
+            self.current_location.latitude += unit_vector_direction[0] * speed
+            self.current_location.longitude += unit_vector_direction[1] * speed
+            print(f"Current Coordinates: Latitude{self.current_location.latitude:.4f}, Longitude: {self.current_location.longitude:.4f}, Battery level: {self.battery_level:.2f}%", end="\r")
+            time.sleep(0.2)
             
 
     # Method for executing flight path
@@ -665,11 +671,16 @@ class DeliveryDrone:
 # location_1 = DroneLocation(10, -90)
 # location_3 = DroneLocation(10, -90)
 # location_2 = DroneLocation(-10, 120)
-drone_1 = DeliveryDrone("Miam1", 100, 80, 5)
-print(drone_1)
+# drone_1 = DeliveryDrone("Miam1", 100, 80, 5)
+# print(drone_1)
 
 # print(location_1)
 # print(location_2)
 # print(location_1 == location_3)
 
-drone_1.execute_flight_path(100)
+# drone_1.execute_flight_path(100)
+home_base = DroneLocation(0, 0)
+target_base = DroneLocation(10, 90)
+drone_2 = DeliveryDrone("Meow_1", home_base, 80, 3)
+drone_2.fly_to(target_base, 10)
+print(home_base)
