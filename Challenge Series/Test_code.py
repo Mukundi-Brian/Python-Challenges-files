@@ -1,15 +1,15 @@
-# Dictionary for the todo list
-all_todo_lists = {
-    "personal":["Go to school", "Run a marathon"],
-    "shopping":["Buy Eggs"],
-    "groceries":[],
-    "school work": ["Finish the Assignment"]
-}
+# # Dictionary for the todo list
+# all_todo_lists = {
+#     "personal":["Go to school", "Run a marathon"],
+#     "shopping":["Buy Eggs"],
+#     "groceries":[],
+#     "school work": ["Finish the Assignment"]
+# }
 
-# print(all_todo_lists)
-name = input("Enter your name: ")
-if name in all_todo_lists:
-    print("Yayyy it works")
+# # print(all_todo_lists)
+# name = input("Enter your name: ")
+# if name in all_todo_lists:
+#     print("Yayyy it works")
 
 
 
@@ -49,3 +49,22 @@ if name in all_todo_lists:
 #         for task in values:
 #             print(f"{task_counter}. {task}")
 #             task_counter += 1
+
+# print(3 * "Miam")
+
+# def conditional_product(num1, num2):
+#     if num1 * num2 <= 1000:
+#         result = num1 * num2
+#         return result
+#     else:
+#         result = num1 + num2
+#         return result
+
+# print(conditional_product(20, 30))
+# print(conditional_product(40, 30))
+
+import time
+
+for i in range(1, 10):
+    print(i, end="\r")
+    time.sleep(1)
